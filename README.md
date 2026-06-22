@@ -33,7 +33,31 @@ The suite functions as a command-line utility, accepting explicit endpoint argum
 ```bash
 python sql_injection.py <target_url> <target_parameter> <test_payload>
 ```
+## Operational Guide: Wordlist Automation
 
+The framework supports bulk automated testing by passing a path to a dictionary file containing test strings (one entry per line).
+
+### Command Execution Template
+```bash
+python sql_wordlist_scanner.py <target_url> <target_parameter> <path_to_wordlist>
+```
+
+### Argument Taxonomy
+*   `target_url`: The destination web application URI hosting the feature under evaluation.
+*   `target_parameter`: The isolated alphanumeric variable or query string attribute slated for injection tracking.
+*   `path_to_wordlist`: The relative or absolute path to a local text file (`.txt`) containing the list of payloads to iterate through.
+
+### Automated Evaluation Example
+1. Create a file named `payloads.txt` containing your test strings:
+   ```text
+   ' OR '1'='1
+   1' AND SLEEP(5)--
+   1 UNION SELECT NULL--
+   ```
+2. Execute the script against the target parameter:
+   ```bash
+   python sql_wordlist_scanner.py "http://example.com" query payloads.txt
+   ```
 ### Argument Taxonomy
 *   `target_url`: The destination web application URI hosting the feature under evaluation.
 *   `target_parameter`: The isolated alphanumeric variable or query string attribute slated for injection tracking.
